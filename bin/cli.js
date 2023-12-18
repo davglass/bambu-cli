@@ -7,7 +7,7 @@ let config = cfg.get();
 const args = require('yargs')
     .scriptName("bambu-cli")
     .completion('completion', 'Generate completion script for your shell')
-    .usage('$0 <cmd> [args] [machine-id]\nex: $0 ls [machine-id]\nex: $0 files [machine-id]\nex: $0 status [machine-id]')
+    .usage('$0 <cmd> [machine-id/name] [args]\n ex: $0 ls\n ex: $0 files [machine-id]\n ex: $0 status [machine-id]')
     .help('h')
     .alias('h', 'help')
     .alias('v', 'version')
