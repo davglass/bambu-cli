@@ -1,5 +1,7 @@
 # bambu-cli
 
+[![npm version](https://badge.fury.io/js/bambu-cli.svg)](https://badge.fury.io/js/bambu-cli) [![Release Build](https://github.com/davglass/bambu-cli/actions/workflows/release.yml/badge.svg)](https://github.com/davglass/bambu-cli/actions/workflows/release.yml)
+
 A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1C's each with 2 AMS's.
 
 ## TODO
