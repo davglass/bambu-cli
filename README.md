@@ -95,7 +95,7 @@ Shows status of all printers, or detailed status of a selected printer
     ---------------  ----------  ----------  ---  ----  ---  ------  --------  -----------------  -------  ---------  ------
     [DEVICE ID]      [NAME]      [IP ADDR]   ✔    ✔     A,B  0.4     RUNNING   Surpise Box Batch  22%      1hour,54m  Normal
 
-<img src="https://github.com/davglass/bambu-cli/blob/main/docs/status.png?raw=true" width="300">
+<img src="https://github.com/davglass/bambu-cli/blob/main/docs/status.png?raw=true">
 
 ## Files
 
