@@ -22,12 +22,20 @@
     "xdg-app-paths": "^8.3.0",
     "yargs": "^17.7.2"
   },
-  "scripts": {
-    "format": "eslint --fix './bin/*.js' './lib/*.js'"
-  },
-  "author": "Dav Glass <davglass@gmail.com>",
-  "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.56.0"
-  }
+    "eslint": "^8.56.0",
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "format": "eslint --fix './bin/*.js' './lib/*.js'",
+    "test": "npm run format"
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "format",
+    "test"
+  ],
+  "author": "Dav Glass <davglass@gmail.com>",
+  "license": "ISC"
 }

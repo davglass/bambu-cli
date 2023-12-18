@@ -31,7 +31,7 @@ talk to the printers over your local network.
 
 ## Config
 
-`bambu-cli config` can be used with my other tool Bambu Farm
+`bambu-cli config` can be used with my other tool [Bambu Farm](https://github.com/davglass/bambu-farm)
 
     bambu-cli config
     {
@@ -175,4 +175,10 @@ the `ftp` server to your local machine. Replacing `--download` with `--parse` wi
           --parse     Parse a 3mf file after download
       -v, --version   Show version number                                  [boolean]
 
+## Shoutouts
 
+Thanks to these other open source projects for helping me figure some things out:
+
+* [Doridian/OpenBambuAPI](https://github.com/Doridian/OpenBambuAPI)
+* [greghesp/ha-bambulab](https://github.com/greghesp/ha-bambulab)
+* [bambulab/BambuStudio](https://github.com/bambulab/BambuStudio)
