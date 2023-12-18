@@ -4,8 +4,10 @@ A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1
 
 ## TODO
 
-* Upload files to the ftp server
+* Upload files to the ftp server.
 * Trigger a printjob from a file on the sdcard.
+* Test offline printers (mine are usually running).
+* Get tests against other printer types (A1 & P1 series).
 * Build a queue that would:
   * Parse the file
   * Know the colors needed
