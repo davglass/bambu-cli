@@ -6,6 +6,13 @@ A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1
 
 ## TODO
 
+* Add shortcuts
+  * Pass a partial machine name
+  * Pass a partial device id
+  * Truncate the comands:
+    * cli l (`bambu-cli ls`)
+    * cli s (`bambu-cli status`)
+    * cli f xxx (`bambu-cli files [DEVICE ID]`)
 * Upload files to the ftp server.
 * Trigger a printjob from a file on the sdcard.
 * Test offline printers (mine are usually running).
