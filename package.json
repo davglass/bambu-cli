@@ -2,6 +2,7 @@
   "name": "bambu-cli",
   "version": "1.0.5",
   "description": "Bambulabs CLI for printers",
+  "keywords": ["bambu", "bambulab", "cli", "3dprinter", "3d", "printer", "bambu-farm"],
   "bin": {
     "bambu-cli": "bin/cli.js"
   },
