@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 const cfg = require('../lib/config.js');
-const login = require('../lib/login.js');
 const commands = require('../lib/commands.js');
 let config = cfg.get();
 
 const args = require('yargs')
     .scriptName("bambu-cli")
-    .completion('completion')
+    .completion('completion', 'Generate completion script for your shell')
     .usage('$0 <cmd> [args] [machine-id]\nex: $0 ls [machine-id]\nex: $0 files [machine-id]\nex: $0 status [machine-id]')
     .help('h')
     .alias('h', 'help')
@@ -30,12 +29,63 @@ const args = require('yargs')
 let cmd = args._[0];
 let machine = args._[1];
 
-if (cmd === 'ls') {
-    cmd = 'machines';
+//Machine alias resolving..
+const machines = config.machines;
+if (machine) {
+    if (machines) {
+        let m;
+        machines.forEach((_m) => {
+            ['id', 'name'].forEach(key => {
+                if (_m[key].toLowerCase().indexOf(machine.toLowerCase()) > -1) {
+                    if (m) {
+                        m = [m];
+                    } else {
+                        if (Array.isArray(m)) {
+                            m.push(_m.id);
+                        } else {
+                            m = _m.id;
+                        }
+                    }
+                }
+            });
+        });
+        if (Array.isArray(m)) {
+            console.error(`Found ${m.length} machines, please limit it more.`);
+            console.error(m.join(', '));
+            process.exit(1);
+        } else if (m) {
+            machine = m;
+        }
+    }
+    args.id = machine;
+}
+if (!commands[cmd]) {
+    let c;
+    Object.keys(commands).forEach(_cmd => {
+        if (_cmd.startsWith(cmd)) {
+            if (!Array.isArray(c) && c) {
+                c = [c];
+                c.push(_cmd);
+            } else {
+                if (Array.isArray(c)) {
+                    c.push(_cmd);
+                } else {
+                    c = _cmd;
+                }
+            }
+        }
+    });
+    if (Array.isArray(c)) {
+        console.error(`Found more than one command for ${cmd}`);
+        console.error(c.join(', '));
+        process.exit(1);
+    } else if (c) {
+        cmd = c;
+    }
 }
 
-if (machine) {
-    args.id = machine;
+if (!machines) {
+    cmd = 'login';
 }
 
 if (cmd === 'files') {
@@ -47,17 +97,8 @@ if (cmd === 'files') {
 
 //console.log(cmd, machine, args);
 
-if (!config.machines || cmd === 'login') {
-    if (cmd === 'login') {
-        console.log(`Logging in to fetch devices.`);
-    } else {
-        console.log(`Could not find machines in config, please login to fetch them.`);
-    }
-    login.start();
-} else {
-    if (!commands[cmd]) {
-        console.log(`Could not find command: ${cmd}`);
-        process.exit(1);
-    }
-    commands[cmd](args);
+if (!commands[cmd]) {
+    console.log(`Could not find command: ${cmd}`);
+    process.exit(1);
 }
+commands[cmd](args);
