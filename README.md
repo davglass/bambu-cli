@@ -25,6 +25,8 @@ A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1
 
 ## Installation
 
+You need to have [Node.js](https://nodejs.org/en) installed and working on your computer. Use the LTS version.
+
     npm -g i bambu-cli
 
 ## Usage
