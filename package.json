@@ -1,6 +1,6 @@
 {
   "name": "bambu-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bambulabs CLI for printers",
   "bin": {
     "bambu-cli": "bin/cli.js"
