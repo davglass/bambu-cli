@@ -1,0 +1,52 @@
+name: Release Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Release Build
+    runs-on: ubuntu-latest 
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup Git Config
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Tests
+        run: npm test
+      - uses: 'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag-prefix: 'v'
+          commit-message: 'CI: bumps version to {{version}} [skip ci]'
+      - name: Export TAG to ENV
+        run: |
+          TAG=`node -e "console.log(require('./package.json').version)"`
+          echo "TAG=v${TAG}" >> $GITHUB_ENV
+      - name: Make Dist Package
+        run: npm pack
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.tgz"
+          tag: ${{ env.TAG }}
+          commit: main
+          makeLatest: 'latest'
+      - name: Push changed files back to main branch (after tests pass)
+        run: |
+          git push
