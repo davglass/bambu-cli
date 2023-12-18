@@ -38,8 +38,9 @@ if (machine) {
         machines.forEach((_m) => {
             ['id', 'name'].forEach(key => {
                 if (_m[key].toLowerCase().indexOf(machine.toLowerCase()) > -1) {
-                    if (m) {
+                    if (!Array.isArray(m) && m) {
                         m = [m];
+                        m.push(_m.id);
                     } else {
                         if (Array.isArray(m)) {
                             m.push(_m.id);
@@ -88,15 +89,6 @@ if (!commands[cmd]) {
 if (!machines) {
     cmd = 'login';
 }
-
-if (cmd === 'files') {
-    if (!args.id) {
-        console.error(`Please pass machine id`);
-        process.exit(1);
-    }
-}
-
-//console.log(cmd, machine, args);
 
 if (!commands[cmd]) {
     console.log(`Could not find command: ${cmd}`);
