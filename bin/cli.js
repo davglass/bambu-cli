@@ -32,6 +32,7 @@ let machine = args._[1];
 //Machine alias resolving..
 const machines = config.machines;
 if (machine) {
+    machine = String(machine);
     if (machines) {
         let m;
         machines.forEach((_m) => {
