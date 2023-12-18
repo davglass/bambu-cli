@@ -52,7 +52,6 @@ jobs:
       - name: Push changed files back to main branch (after tests pass)
         run: |
           git push
-      - name: Publish package on NPM 📦
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
