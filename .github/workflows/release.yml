@@ -47,6 +47,8 @@ jobs:
           tag: ${{ env.TAG }}
           commit: main
           makeLatest: 'latest'
+      - name: Remove package build
+        run: rm *.tgz
       - name: Push changed files back to main branch (after tests pass)
         run: |
           git push
