@@ -1,0 +1,28 @@
+root: true
+extends: eslint:recommended
+env:
+  node: true
+  mocha: true
+globals:
+  # Used by TestCafe.
+  fixture: true
+  test: true
+  normalized: true
+parserOptions:
+  ecmaVersion: 12
+  sourceType: module
+rules:
+  semi: "error"
+  no-console: 0
+  comma-dangle: ["error", "never"]
+  no-mixed-spaces-and-tabs: ["error", "smart-tabs"]
+  no-irregular-whitespace: 2
+  no-multi-spaces: ["error", { exceptions: { "VariableDeclarator": true, "Property": true } }]
+  no-unused-vars: ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }]
+  indent: ["error", 4]
+  space-before-function-paren: ["error", "never"]
+  brace-style: [2, "1tbs", { "allowSingleLine": true }]
+  arrow-body-style: [2, "always"]
+  array-bracket-spacing: [2, "never"]
+  object-curly-spacing: [2, "always"]
+  key-spacing: ["error", { "beforeColon": false, align: "value" }]

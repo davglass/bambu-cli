@@ -1,3 +1,8 @@
+tmp
+*.3mf
+
+
+
 # Logs
 logs
 *.log

@@ -1,0 +1,33 @@
+{
+  "name": "bambu-cli",
+  "version": "1.0.0",
+  "description": "Bambulabs CLI for printers",
+  "bin": {
+    "bambu-cli": "bin/cli.js"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.4",
+    "chalk": "^4.1.2",
+    "color-namer": "^1.4.0",
+    "easy-table": "^1.2.0",
+    "fast-xml-parser": "^4.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "mqtt": "^5.3.3",
+    "office-document-properties": "^1.1.0",
+    "prettysize": "^2.0.0",
+    "progress": "^2.0.3",
+    "readline-sync": "^1.4.10",
+    "timethat": "^0.0.3",
+    "unzipper": "^0.10.14",
+    "xdg-app-paths": "^8.3.0",
+    "yargs": "^17.7.2"
+  },
+  "scripts": {
+    "format": "eslint --fix './bin/*.js' './lib/*.js'"
+  },
+  "author": "Dav Glass <davglass@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}
