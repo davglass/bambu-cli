@@ -15,6 +15,7 @@ const args = require('yargs')
     .describe('delete', 'Delete a file, optional use --filter to limit to a single file')
     .describe('file', 'The file to work with')
     .describe('filter', 'Filter files by name')
+    .describe('force', 'Skip the cache or force an operation')
     .describe('id', 'Pass a device id to limit to one')
     .describe('parse', 'Parse a 3mf file after download')
     .describe('upload', 'Upload a file [--upload=./foo.gcode.3mf]')
@@ -24,7 +25,8 @@ const args = require('yargs')
     .command('login', 'Login and fetch machine information')
     .command('ls', 'Alias for machines')
     .command('machines', 'List current known machines')
-    .command('parse', 'Parse details from a .3mf file [--file]')
+    .command('parse', 'Parse details from a .3mf file [--file] [--force]')
+    //.command('print', 'Pass file name on printer to print [--file]')
     .command('status', 'Check machine connectivity [--id to get detailed info]')
     .command('timelapse', 'Show video files on machine [--id] [--filter] [--download] [--delete] [--yes]')
     .command('upload', 'Upload a .gcode or .gcode.3mf file [--id] [--upload]')
@@ -45,10 +47,14 @@ if (machine) {
                 if (_m[key].toLowerCase().indexOf(machine.toLowerCase()) > -1) {
                     if (!Array.isArray(m) && m) {
                         m = [m];
-                        m.push(_m.id);
+                        if (!m.includes(_m.id)) {
+                            m.push(_m.id);
+                        }
                     } else {
                         if (Array.isArray(m)) {
-                            m.push(_m.id);
+                            if (!m.includes(_m.id)) {
+                                m.push(_m.id);
+                            }
                         } else {
                             m = _m.id;
                         }

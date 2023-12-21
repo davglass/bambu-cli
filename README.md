@@ -14,7 +14,7 @@ A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1
     * ~~cli s (`bambu-cli status`)~~
     * ~~cli f xxx (`bambu-cli files [DEVICE ID]`)~~
     * ~~cli f 012 (`bambu-cli files [DEVICE ID]`)~~
-* Upload files to the ftp server.
+* ~~Upload files to the ftp server~~.
 * Trigger a print job from a file on the sdcard.
 * Test offline printers (mine are usually running).
 * Get tests against other printer types (A1 & P1 series).
@@ -124,8 +124,9 @@ Shows all .gcode/.3mf files on the local `ftp` server of the selected printer.
     -----------------------------------------------  ------------  ---------------
                                      # of Files: 43                Total: 528.4 MB
 
-Add `--filter=<foo>` to limit the output. You can also pass `--download` to download the single file from
-the `ftp` server to your local machine. Replacing `--download` with `--parse` will parse meta data from the file
+Add `--filter=<foo>` to limit the output. You can also pass `--download` to download all of the files shown from
+the `ftp` server to your local machine. Replacing `--download` with `--parse` will parse meta data from the file. Using
+`--delete` will delete the shown files.
 
     bambu-cli files [DEVICE ID] --filter "DL-44 Blaster.gco"
     Name                     Date          Size          
@@ -138,11 +139,17 @@ the `ftp` server to your local machine. Replacing `--download` with `--parse` wi
     Downloading  DL-44 Blaster.gcode.3mf to ./
      downloading [====================================================================] 33.9MB of 33.9MB 100% 0.0s
 
-    bambu-cli files [DEVICE ID] --filter "DL-44 Blaster.gco" --parse
-    Downloading  DL-44 Blaster.gcode.3mf to /var/folders/3f/l51wfms16l3c5zbtgzv95q_80000gn/T
-     downloading [====================================================================] 33.9MB of 33.9MB 100% 0.0s
 
-    Attempting to parse: /var/folders/3f/l51wfms16l3c5zbtgzv95q_80000gn/T/DL-44 Blaster.gcode.3mf
+## Timelapse
+
+Same as `files` except it shows the timelapse videos and allows you to download them the same way. `--delete` will also delete the remote files.
+
+## Parse
+
+This will parse a local `.gcode.3mf` file and show some details about it.
+
+    bambu-cli parse --file "./DL-44 Blaster.gcode.3mf"
+    Attempting to parse: ./DL-44 Blaster.gcode.3mf
 
     File Information:
        Size:        33.9 MB
@@ -160,33 +167,47 @@ the `ftp` server to your local machine. Replacing `--download` with `--parse` wi
     Plate 6     Textured Plate  0.4        #000000              PLA         9.00          28.56          680,367      3h 19m 21s    
     Plate 7     Textured Plate  0.4        #000000,    #FFFFFF  PLA, PLA-S  44.75, 9.45   142.09, 29.55  1,682,337    13h 39m 14s   
 
-    Cleaing up tmpfile: /var/folders/3f/l51wfms16l3c5zbtgzv95q_80000gn/T/DL-44 Blaster.gcode.3mf
+
+## Upload
+
+    bambu-cli upload [DEVICE ID] --upload ./test-upload-multicolor.gcode.3mf 
+    🚀 Uploading 1 file(s) to [DEVICE ID].
+    🚀 Uploading: test-upload-multicolor.gcode.3mf (54 kB)
+    💾 [====================================================================================================] 54kB of 54kB 100%
+
 
 ## Full Help
 
-    bambu-cli <cmd> [args] [machine-id]
-    ex: bambu-cli ls [machine-id]
+    bambu-cli <cmd> [machine-id/name] [args]
+    ex: bambu-cli ls
     ex: bambu-cli files [machine-id]
     ex: bambu-cli status [machine-id]
 
     Commands:
-      bambu-cli completion  generate completion script
+      bambu-cli completion  Generate completion script for your shell
       bambu-cli config      Show config (for bambu-farm)
-      bambu-cli files       Show files on machine [--id] [--filter] [--download]
-                            [--parse]
+      bambu-cli files       Show gcode files on machine [--id] [--filter]
+                            [--download] [--parse] [--delete] [--yes]
       bambu-cli login       Login and fetch machine information
       bambu-cli ls          Alias for machines
       bambu-cli machines    List current known machines
-      bambu-cli parse       Parse details from a .3mf file [--file]
+      bambu-cli parse       Parse details from a .3mf file [--file] [--force]
       bambu-cli status      Check machine connectivity [--id to get detailed info]
+      bambu-cli timelapse   Show video files on machine [--id] [--filter]
+                            [--download] [--delete] [--yes]
+      bambu-cli upload      Upload a .gcode or .gcode.3mf file [--id] [--upload]
 
     Options:
       -h, --help      Show help                                            [boolean]
           --download  Download a file, optional set output path [--download=/foo]
+          --delete    Delete a file, optional use --filter to limit to a single file
           --file      The file to work with
           --filter    Filter files by name
+          --force     Skip the cache or force an operation
           --id        Pass a device id to limit to one
           --parse     Parse a 3mf file after download
+          --upload    Upload a file [--upload=./foo.gcode.3mf]
+          --yes       Auto select YES when prompted
       -v, --version   Show version number                                  [boolean]
 
 ## Shoutouts
