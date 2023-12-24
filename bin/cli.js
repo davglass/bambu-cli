@@ -20,9 +20,12 @@ const args = require('yargs')
     .describe('json', 'Print JSON output')
     .describe('keys', 'Alone shows all keys in message, pass a comma-sep list of keys to print')
     .describe('parse', 'Parse a 3mf file after download')
+    .describe('set', 'For config, key to set')
+    .describe('slim', 'Limit fields on status')
     .describe('upload', 'Upload a file [--upload=./foo.gcode.3mf]')
+    .describe('value', 'For config, value to set with --key')
     .describe('yes', 'Auto select YES when prompted')
-    .command('config', 'Show config (for bambu-farm)')
+    .command('config', 'Show config (for bambu-farm) [--set foo --value bar]')
     .command('files', 'Show gcode files on machine [--id] [--filter] [--download] [--parse] [--delete] [--yes]')
     .command('login', 'Login and fetch machine information')
     .command('ls', 'Alias for machines')
@@ -30,7 +33,7 @@ const args = require('yargs')
     .command('mqtt', 'Show mqtt messages [--keys] [--json] (--json --keys ams,vt_tray)')
     .command('parse', 'Parse details from a .3mf file [--file] [--force]')
     //.command('print', 'Pass file name on printer to print [--file]')
-    .command('status', 'Check machine connectivity [--id to get detailed info]')
+    .command('status', 'Check machine connectivity [--id to get detailed info] [--slim]')
     .command('timelapse', 'Show video files on machine [--id] [--filter] [--download] [--delete] [--yes]')
     .command('upload', 'Upload a .gcode or .gcode.3mf file [--id] [--upload]')
     .demandCommand(1, 'You need at least one command before moving on')
@@ -38,6 +41,14 @@ const args = require('yargs')
 
 let cmd = args._[0];
 let machine = args._[1];
+
+if (args.slim) {
+    args.slim = cfg.fixValue(args.slim);
+}
+
+if (config.slim && !('slim' in args)) { //TODO make this more dynamic
+    args.slim = config.slim;
+}
 
 //Machine alias resolving..
 const machines = config.machines;
