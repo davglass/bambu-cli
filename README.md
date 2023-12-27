@@ -146,26 +146,10 @@ Same as `files` except it shows the timelapse videos and allows you to download 
 
 ## Parse
 
-This will parse a local `.gcode.3mf` file and show some details about it.
+This will parse a local `.gcode.3mf` file and show some details about it. Just added checking filaments against currently known printers and reporting which one a plate can be sent to.
 
-    bambu-cli parse --file "./DL-44 Blaster.gcode.3mf"
-    Attempting to parse: ./DL-44 Blaster.gcode.3mf
-
-    File Information:
-       Size:        33.9 MB
-       Created:     12/18/2023, 8:52:26 AM
-       Last Mod:    12/18/2023, 8:52:26 AM
-       Last Access: 12/18/2023, 8:52:26 AM
-
-    Plate Name  Bed Type        Nozzle  Filament Colors         Filaments   Fil Used (m)  Fil Used (g)   GCode Lines  Estimated Time
-    ----------  --------------  ------  ----------------------  ----------  ------------  -------------  -----------  --------------
-    Plate 1     Textured Plate  0.4        #000000              PLA         12.15         38.57          547,215      2h 45m 14s    
-    Plate 2     Textured Plate  0.4        #000000,    #FFFFFF  PLA, PLA-S  24.82, 1.19   78.79, 3.74    1,056,541    6h 32m 8s     
-    Plate 3     Textured Plate  0.4        #D3B7A7,    #FFFFFF  PLA, PLA-S  10.52, 0.11   33.41, 0.35    642,166      2h 25m 6s     
-    Plate 4     Textured Plate  0.4        #D3B7A7,    #FFFFFF  PLA, PLA-S  2.07, 0.10    6.56, 0.31     164,146      34m 10s       
-    Plate 5     Textured Plate  0.4        #9B9EA0              PLA         6.31          20.03          745,572      2h 27m 42s    
-    Plate 6     Textured Plate  0.4        #000000              PLA         9.00          28.56          680,367      3h 19m 21s    
-    Plate 7     Textured Plate  0.4        #000000,    #FFFFFF  PLA, PLA-S  44.75, 9.45   142.09, 29.55  1,682,337    13h 39m 14s   
+<img src="https://github.com/davglass/bambu-cli/blob/main/docs/parser.png?raw=true">
+<img src="https://github.com/davglass/bambu-cli/blob/main/docs/parser2.png?raw=true">
 
 
 ## Upload
