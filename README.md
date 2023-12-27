@@ -15,14 +15,19 @@ A simple CLI tool for BambuLab printers. Currently only tested with a pair of X1
     * ~~cli f xxx (`bambu-cli files [DEVICE ID]`)~~
     * ~~cli f 012 (`bambu-cli files [DEVICE ID]`)~~
 * ~~Upload files to the ftp server~~.
+* ~~Redact logging personal info for easier screenshots~~
+* Run a background task that auto updates the config for filament type/color
 * Trigger a print job from a file on the sdcard.
+  * And choose a plate if file has more than one
+  * Let the user override the filament type/color from AMS selection
 * Test offline printers (mine are usually running).
 * Get tests against other printer types (A1 & P1 series).
 * Build a queue that would:
-  * Parse the file
-  * Know the colors needed
+  * ~~Parse the file~~
+  * ~~Know the colors needed~~
+  * ~~Know which printer has the proper filament type/color~~
   * Know which printer is free
-  * Send the file to the printer that is free and has the right colors
+  * Send the file to the printer that is free and has the right filament type/color
 
 ## Installation
 

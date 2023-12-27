@@ -2,6 +2,7 @@
 
 const cfg = require('../lib/config.js');
 const commands = require('../lib/commands.js');
+const logger = require('../lib/logger.js');
 let config = cfg.get();
 
 const args = require('yargs')
@@ -13,18 +14,26 @@ const args = require('yargs')
     .alias('v', 'version')
     .describe('download', 'Download a file, optional set output path [--download=/foo]')
     .describe('delete', 'Delete a file, optional use --filter to limit to a single file')
+    .boolean('delete')
     .describe('file', 'The file to work with')
     .describe('filter', 'Filter files by name')
     .describe('force', 'Skip the cache or force an operation')
+    .boolean('force')
     .describe('id', 'Pass a device id to limit to one')
     .describe('json', 'Print JSON output')
+    .boolean('json')
     .describe('keys', 'Alone shows all keys in message, pass a comma-sep list of keys to print')
     .describe('parse', 'Parse a 3mf file after download')
+    .boolean('parse')
+    .describe('redact', 'Redact private info from logs (for screenshots)')
+    .boolean('redact')
     .describe('set', 'For config, key to set')
     .describe('slim', 'Limit fields on status')
+    .boolean('slim')
     .describe('upload', 'Upload a file [--upload=./foo.gcode.3mf]')
     .describe('value', 'For config, value to set with --key')
     .describe('yes', 'Auto select YES when prompted')
+    .boolean('yes')
     .command('config', 'Show config (for bambu-farm) [--set foo --value bar]')
     .command('files', 'Show gcode files on machine [--id] [--filter] [--download] [--parse] [--delete] [--yes]')
     .command('login', 'Login and fetch machine information')
@@ -48,6 +57,10 @@ if (args.slim) {
 
 if (config.slim && !('slim' in args)) { //TODO make this more dynamic
     args.slim = config.slim;
+}
+
+if (args.redact) {
+    logger.REDACT = true;
 }
 
 //Machine alias resolving..
@@ -77,8 +90,8 @@ if (machine) {
             });
         });
         if (Array.isArray(m)) {
-            console.error(`Found ${m.length} machines, please limit it more.`);
-            console.error(m.join(', '));
+            logger.error(`Found ${m.length} machines, please limit it more.`);
+            logger.error(m.join(', '));
             process.exit(1);
         } else if (m) {
             machine = m;
@@ -103,8 +116,8 @@ if (!commands[cmd]) {
         }
     });
     if (Array.isArray(c)) {
-        console.error(`Found more than one command for ${cmd}`);
-        console.error(c.join(', '));
+        logger.error(`Found more than one command for ${cmd}`);
+        logger.error(c.join(', '));
         process.exit(1);
     } else if (c) {
         cmd = c;
@@ -116,7 +129,7 @@ if (!machines) {
 }
 
 if (!commands[cmd]) {
-    console.log(`Could not find command: ${cmd}`);
+    logger.error(`Could not find command: ${cmd}`);
     process.exit(1);
 }
 commands[cmd](args);
