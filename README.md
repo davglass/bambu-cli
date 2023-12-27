@@ -169,14 +169,17 @@ This will parse a local `.gcode.3mf` file and show some details about it. Just a
 
     Commands:
       bambu-cli completion  Generate completion script for your shell
-      bambu-cli config      Show config (for bambu-farm)
+      bambu-cli config      Show config (for bambu-farm) [--set foo --value bar]
       bambu-cli files       Show gcode files on machine [--id] [--filter]
                             [--download] [--parse] [--delete] [--yes]
       bambu-cli login       Login and fetch machine information
       bambu-cli ls          Alias for machines
       bambu-cli machines    List current known machines
+      bambu-cli mqtt        Show mqtt messages [--keys] [--json] (--json --keys
+                            ams,vt_tray)
       bambu-cli parse       Parse details from a .3mf file [--file] [--force]
       bambu-cli status      Check machine connectivity [--id to get detailed info]
+                            [--slim]
       bambu-cli timelapse   Show video files on machine [--id] [--filter]
                             [--download] [--delete] [--yes]
       bambu-cli upload      Upload a .gcode or .gcode.3mf file [--id] [--upload]
@@ -189,8 +192,14 @@ This will parse a local `.gcode.3mf` file and show some details about it. Just a
           --filter    Filter files by name
           --force     Skip the cache or force an operation
           --id        Pass a device id to limit to one
+          --json      Print JSON output
+          --keys      Alone shows all keys in message, pass a comma-sep list of keys
+                      to print
           --parse     Parse a 3mf file after download
+          --set       For config, key to set
+          --slim      Limit fields on status
           --upload    Upload a file [--upload=./foo.gcode.3mf]
+          --value     For config, value to set with --key
           --yes       Auto select YES when prompted
       -v, --version   Show version number                                  [boolean]
 
