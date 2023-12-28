@@ -165,6 +165,18 @@ This will parse a local `.gcode.3mf` file and show some details about it. Just a
     💾 [====================================================================================================] 54kB of 54kB 100%
 
 
+## MQTT
+
+This command is used for debugging MQTT traffic:
+
+    bambu-cli mqtt --json //Prints all messages
+    bambu-cli mqtt --json --keys //Prints the top level "keys"
+    bambu-cli mqtt --json --keys ams //Prints only the `ams` key
+    bambu-cli mq --path $..ams.ams[0].tray //Prints AMS 1 `tray` Array
+    bambu-cli mq --path $..ams.ams[0].tray[1] //Prints AMS 1 `tray` at index 1 
+
+Supports [JSONPath](https://github.com/dchester/jsonpath#jsonpath-syntax) for filtering with `--path`
+
 ## Full Help
 
     bambu-cli <cmd> [machine-id/name] [args]

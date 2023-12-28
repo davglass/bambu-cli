@@ -20,6 +20,7 @@
     "color-namer": "^1.4.0",
     "easy-table": "^1.2.0",
     "fast-xml-parser": "^4.3.2",
+    "jsonpath": "^1.1.1",
     "jsonwebtoken": "^9.0.2",
     "md5-file": "^5.0.0",
     "mqtt": "^5.3.3",
