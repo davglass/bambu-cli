@@ -46,8 +46,7 @@
   "pre-commit": [
     "precommit-msg",
     "format",
-    "test",
-    "fetch-hms"
+    "test"
   ],
   "author": "Dav Glass <davglass@gmail.com>",
   "license": "ISC"
