@@ -40,12 +40,14 @@
   "scripts": {
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "format": "eslint --fix './bin/*.js' './lib/*.js'",
-    "test": "npm run format"
+    "test": "npm run format",
+    "fetch-hms": "node ./bin/fetch-hms.js"
   },
   "pre-commit": [
     "precommit-msg",
     "format",
-    "test"
+    "test",
+    "fetch-hms"
   ],
   "author": "Dav Glass <davglass@gmail.com>",
   "license": "ISC"
