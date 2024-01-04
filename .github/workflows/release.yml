@@ -27,6 +27,8 @@ jobs:
           git config user.email github-actions@github.com
       - name: Install Dependencies
         run: npm install
+      - name: Fetch HMS Error Codes
+        run: npm run fetch-hms
       - name: Run Tests
         run: npm test
       - uses: 'phips28/gh-action-bump-version@master'
