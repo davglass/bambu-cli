@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-const cfg = require('../lib/config.js');
-const commands = require('../lib/commands.js');
-const logger = require('../lib/logger.js');
-let config = cfg.get();
-
 const args = require('yargs')
     .scriptName("bambu-cli")
     .completion('completion', 'Generate completion script for your shell')
@@ -12,9 +7,11 @@ const args = require('yargs')
     .help('h')
     .alias('h', 'help')
     .alias('v', 'version')
-    .describe('download', 'Download a file, optional set output path [--download=/foo]')
+    .describe('debug', 'Print debugging information. (optional set DEBUG=1 env variable)')
+    .boolean('debug')
     .describe('delete', 'Delete a file, optional use --filter to limit to a single file')
     .boolean('delete')
+    .describe('download', 'Download a file, optional set output path [--download=/foo]')
     .describe('file', 'The file to work with')
     .describe('filter', 'Filter files by name')
     .describe('force', 'Skip the cache or force an operation')
@@ -48,6 +45,16 @@ const args = require('yargs')
     .command('upload', 'Upload a .gcode or .gcode.3mf file [--id] [--upload]')
     .demandCommand(1, 'You need at least one command before moving on')
     .argv;
+
+const logger = require('../lib/logger.js');
+if (args.debug || 'DEBUG' in process.env) {
+    logger.setDebug(true);   
+}
+
+const cfg = require('../lib/config.js');
+const commands = require('../lib/commands.js');
+let config = cfg.get();
+
 
 let cmd = args._[0];
 let machine = args._[1];
@@ -100,6 +107,13 @@ if (machine) {
     }
     args.id = machine;
 }
+
+//Default to only machine they have
+if (!args.id && machines.length === 1) {
+    logger.debug(`Defaulting to only machine you have ${machines[0].id}`);
+    args.id = machines[0].id;
+}
+
 if (!commands[cmd]) {
     let c;
     Object.keys(commands).forEach(_cmd => {
