@@ -111,7 +111,7 @@ if (machine) {
 }
 
 //Default to only machine they have
-if (!args.id && machines.length === 1) {
+if (!args.id && machines && machines.length === 1) {
     logger.debug(`Defaulting to only machine you have ${machines[0].id}`);
     args.id = machines[0].id;
 }
